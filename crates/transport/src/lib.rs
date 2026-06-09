@@ -42,6 +42,14 @@ pub enum TransportError {
 /// Convenience alias for transport results.
 pub type TransportResult<T> = Result<T, TransportError>;
 
+/// Returns the semantic version of this crate as compiled.
+///
+/// Mirrors [`ai_pocket_core::version`] so each layer can report its own build
+/// during handshakes and diagnostics.
+pub fn version() -> &'static str {
+    env!("CARGO_PKG_VERSION")
+}
+
 /// Local-network device discovery.
 ///
 /// Implementations browse the LAN (typically via mDNS) and surface
