@@ -1,0 +1,9 @@
+# UniFFI 绑定生成配置。各目标语言的命名空间 / 包名在此约定。
+[bindings.swift]
+# iOS 端模块名。
+module_name = "AiPocket"
+ffi_module_name = "AiPocketFFI"
+
+[bindings.kotlin]
+# Android 端包名。
+package_name = "io.aipocket.ffi"

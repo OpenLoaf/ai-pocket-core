@@ -1,0 +1,27 @@
+[package]
+name = "ai-pocket-transport"
+description = "Transport abstractions for AI Pocket: local-network discovery and public-network relay client traits over async I/O."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[lib]
+name = "ai_pocket_transport"
+
+[dependencies]
+# 发布期改用锁定版：ai-pocket-core = { git = "https://github.com/OpenLoaf/ai-pocket-core", tag = "v0.1.0" }
+# 开发期：同仓内 path 依赖。transport 与 core 同在 crates/ 下，相对路径上一级再进 core。
+ai-pocket-core = { path = "../core" }
+
+serde = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+
+[features]
+default = []
+# 打开后启用进程内回环 stub 实现，便于在无真实网络时做集成测试。
+stub = []

@@ -1,0 +1,17 @@
+# Rust build output
+/target
+**/target
+
+# 生成的移动端绑定产物
+/bindings
+
+# 环境与本地配置（不入仓；只提供 .env.example）
+.env
+.env.*
+!.env.example
+
+# 编辑器 / OS
+.DS_Store
+*.swp
+.idea/
+.vscode/

@@ -1,0 +1,35 @@
+# ai-pocket-core workspace
+# 公开仓 cargo workspace，聚合三个共享 crate：core / transport / ffi。
+[workspace]
+resolver = "2"
+members = [
+    "crates/core",
+    "crates/transport",
+    "crates/ffi",
+]
+
+# 所有成员共享的包元信息（通过 `xxx.workspace = true` 继承）。
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+# TODO(license)：先用双许可占位，最终授权方式待用户确认（见 README）。
+license = "MIT OR Apache-2.0"
+authors = ["AI Pocket Contributors"]
+repository = "https://github.com/OpenLoaf/ai-pocket-core"
+
+# 共享依赖集中声明，成员里用 `dep.workspace = true` 引用，保证版本一致。
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "macros", "sync", "time", "net"] }
+tracing = "0.1"
+uniffi = "0.28"
+
+# 内部 crate（路径依赖；发布期由各成员 Cargo.toml 注释说明切换为 git tag 锁定版）。
+ai-pocket-core = { path = "crates/core", version = "0.1.0" }
+ai-pocket-transport = { path = "crates/transport", version = "0.1.0" }
+
+[profile.release]
+lto = "thin"

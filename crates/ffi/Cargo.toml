@@ -1,0 +1,35 @@
+[package]
+name = "ai-pocket-ffi"
+description = "UniFFI bindings facade for AI Pocket, exposing the core/transport domain to mobile (iOS / Android) consumers."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[lib]
+name = "ai_pocket_ffi"
+# 移动端需要：lib 供 Rust 测试；cdylib 供 Android (.so) / 通用动态库；staticlib 供 iOS 静态链接。
+crate-type = ["lib", "cdylib", "staticlib"]
+
+# uniffi-bindgen 可执行入口，供 scripts/gen-bindings.sh 调用以生成 Swift/Kotlin 绑定。
+[[bin]]
+name = "uniffi-bindgen"
+path = "src/bin/uniffi-bindgen.rs"
+
+[dependencies]
+# 发布期改用锁定版：ai-pocket-core = { git = "https://github.com/OpenLoaf/ai-pocket-core", tag = "v0.1.0" }
+# 开发期：ffi 在 crates/ffi，core 在 crates/core，相对路径 ../core。
+ai-pocket-core = { path = "../core" }
+# 发布期改用锁定版：ai-pocket-transport = { git = "https://github.com/OpenLoaf/ai-pocket-core", tag = "v0.1.0" }
+# 开发期：transport 在 crates/transport，相对路径 ../transport。
+ai-pocket-transport = { path = "../transport" }
+
+thiserror = { workspace = true }
+# 运行时需要 uniffi 的 proc-macro 与 cli（cli 提供 uniffi_bindgen_main）。
+uniffi = { workspace = true, features = ["cli"] }
+
+[build-dependencies]
+# 构建期生成 scaffolding 所需的 build feature。
+uniffi = { workspace = true, features = ["build"] }

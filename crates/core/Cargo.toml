@@ -1,0 +1,19 @@
+[package]
+name = "ai-pocket-core"
+description = "Shared domain core for AI Pocket: control protocol, H.264 frame envelopes, session state machine, and device discovery descriptors."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[lib]
+name = "ai_pocket_core"
+
+[dependencies]
+serde = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+serde_json = { workspace = true }

@@ -1,0 +1,4 @@
+[toolchain]
+# 锁定 stable 通道；最低 rustc 由各 crate 的 rust-version = "1.85" 约束。
+channel = "stable"
+components = ["rustfmt", "clippy"]
